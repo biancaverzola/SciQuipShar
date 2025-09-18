@@ -1,6 +1,6 @@
 # 🔬 SciQuipShar Equipment Booking System
 
-A complete blockchain-based equipment booking system for scientific laboratories. Interact with the deployed smart contract on Ethereum Sepolia testnet through both a **beautiful web interface** and **powerful Node.js CLI tools**.
+Scientific Equipment Sharing (SciQuipShar) is a complete blockchain-based equipment booking system for scientific laboratories. Interact with the deployed smart contract on Ethereum Sepolia testnet through both a **beautiful web interface** and **powerful Node.js CLI tools**.
 
 ## ✨ Features
 
@@ -167,3 +167,4 @@ For detailed error information, check browser console (F12) or terminal output.
 ## 📄 License
 
 ISC License - Feel free to use and modify as needed.
+
