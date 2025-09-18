@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SciQuipShar - Equipment Booking</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        padding: 20px;
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+      }
+
+      .header {
+        background: linear-gradient(135deg, #4caf50 0%, #45a049 100%);
+        color: white;
+        padding: 30px;
+        text-align: center;
+      }
+
+      .header h1 {
+        font-size: 2.5em;
+        margin-bottom: 10px;
+      }
+
+      .header p {
+        opacity: 0.9;
+        font-size: 1.1em;
+      }
+
+      .content {
+        padding: 40px;
+      }
+
+      .wallet-section {
+        background: #f8f9fa;
+        border-radius: 15px;
+        padding: 20px;
+        margin-bottom: 30px;
+        border: 2px solid #e9ecef;
+      }
+
+      .connect-wallet {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 15px;
+      }
+
+      .wallet-info {
+        flex: 1;
+      }
+
+      .wallet-status {
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+
+      .wallet-address {
+        font-family: monospace;
+        background: #e9ecef;
+        padding: 8px 12px;
+        border-radius: 8px;
+        font-size: 0.9em;
+        word-break: break-all;
+      }
+
+      .btn {
+        background: linear-gradient(135deg, #4caf50 0%, #45a049 100%);
+        color: white;
+        border: none;
+        padding: 12px 24px;
+        border-radius: 25px;
+        cursor: pointer;
+        font-size: 1em;
+        font-weight: bold;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(76, 175, 80, 0.3);
+      }
+
+      .btn:disabled {
+        background: #ccc;
+        cursor: not-allowed;
+        transform: none;
+        box-shadow: none;
+      }
+
+      .form-section {
+        background: #fff;
+        border-radius: 15px;
+        padding: 30px;
+        margin-bottom: 30px;
+        border: 2px solid #e9ecef;
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: bold;
+        color: #333;
+      }
+
+      .form-group input {
+        width: 100%;
+        padding: 12px 16px;
+        border: 2px solid #e9ecef;
+        border-radius: 10px;
+        font-size: 1em;
+        transition: border-color 0.3s ease;
+      }
+
+      .form-group input:focus {
+        outline: none;
+        border-color: #4caf50;
+      }
+
+      .status-section {
+        background: #f8f9fa;
+        border-radius: 15px;
+        padding: 20px;
+        margin-bottom: 20px;
+      }
+
+      .status-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 0;
+        border-bottom: 1px solid #e9ecef;
+      }
+
+      .status-item:last-child {
+        border-bottom: none;
+      }
+
+      .status-label {
+        font-weight: bold;
+        color: #666;
+      }
+
+      .status-value {
+        font-family: monospace;
+        background: #e9ecef;
+        padding: 4px 8px;
+        border-radius: 6px;
+        font-size: 0.9em;
+      }
+
+      .log-section {
+        background: #000;
+        color: #00ff00;
+        border-radius: 15px;
+        padding: 20px;
+        font-family: monospace;
+        font-size: 0.9em;
+        height: 200px;
+        overflow-y: auto;
+        white-space: pre-wrap;
+      }
+
+      .loading {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        border: 3px solid rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        border-top-color: #fff;
+        animation: spin 1s ease-in-out infinite;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      .success {
+        color: #4caf50;
+      }
+
+      .error {
+        color: #f44336;
+      }
+
+      .warning {
+        color: #ff9800;
+      }
+
+      @media (max-width: 600px) {
+        .connect-wallet {
+          flex-direction: column;
+          text-align: center;
+        }
+
+        .header h1 {
+          font-size: 2em;
+        }
+
+        .content {
+          padding: 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1><i class="fas fa-microscope"></i> SciQuipShar</h1>
+        <p>Scientific Equipment Booking Platform on Ethereum</p>
+      </div>
+
+      <div class="content">
+        <!-- Wallet Connection Section -->
+        <div class="wallet-section">
+          <div class="connect-wallet">
+            <div class="wallet-info">
+              <div class="wallet-status" id="walletStatus">
+                <i class="fas fa-wallet"></i> Wallet: Not Connected
+              </div>
+              <div
+                class="wallet-address"
+                id="walletAddress"
+                style="display: none"
+              ></div>
+            </div>
+            <button class="btn" id="connectWallet">
+              <i class="fas fa-link"></i> Connect MetaMask
+            </button>
+          </div>
+        </div>
+
+        <!-- Contract Status Section -->
+        <div class="status-section">
+          <h3 style="margin-bottom: 15px">
+            <i class="fas fa-info-circle"></i> Contract Status
+          </h3>
+          <div class="status-item">
+            <span class="status-label">Network:</span>
+            <span class="status-value" id="networkName">Not Connected</span>
+          </div>
+          <div class="status-item">
+            <span class="status-label">Contract Address:</span>
+            <span class="status-value"
+              >0xb07FfbA41aCD7872c45b1BAFdA5e9eDD79DEd195</span
+            >
+          </div>
+          <div class="status-item">
+            <span class="status-label">Total Bookings:</span>
+            <span class="status-value" id="bookingCounter">-</span>
+          </div>
+          <div class="status-item">
+            <span class="status-label">Wallet Balance:</span>
+            <span class="status-value" id="walletBalance">-</span>
+          </div>
+        </div>
+
+        <!-- Booking Form Section -->
+        <div class="form-section">
+          <h3 style="margin-bottom: 20px">
+            <i class="fas fa-calendar-plus"></i> Request Equipment Booking
+          </h3>
+          <form id="bookingForm">
+            <div class="form-group">
+              <label for="equipmentId">Equipment ID:</label>
+              <input
+                type="text"
+                id="equipmentId"
+                placeholder="e.g., SEM01, MICROSCOPE-A, LAB-001"
+                value="SEM01"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="userId">User ID:</label>
+              <input
+                type="text"
+                id="userId"
+                placeholder="e.g., ResearcherA, john.doe, lab-user-123"
+                value="ResearcherA"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="startDate">Start Date:</label>
+              <input type="date" id="startDate" required />
+            </div>
+            <div class="form-group">
+              <label for="endDate">End Date:</label>
+              <input type="date" id="endDate" required />
+            </div>
+            </div>
+            <button type="submit" class="btn" id="submitBooking" disabled>
+              <i class="fas fa-paper-plane"></i> Submit Booking Request
+            </button>
+          </form>
+        </div>
+
+        <!-- Add Equipment Section -->
+        <div class="form-section">
+          <h3><i class="fas fa-plus-circle"></i> Add Equipment</h3>
+          <form id="addEquipmentForm">
+            <div class="form-group">
+              <label for="newEquipmentId">Equipment ID:</label>
+              <input type="text" id="newEquipmentId" required />
+            </div>
+            <div class="form-group">
+              <label for="newEquipmentName">Equipment Name:</label>
+              <input type="text" id="newEquipmentName" required />
+            </div>
+            <div class="form-group">
+              <label for="newEquipmentPrice">Price per Day (Sepolia ETH):</label>
+              <input
+                type="number"
+                id="newEquipmentPrice"
+                placeholder="e.g., 0.01"
+                step="0.0001"
+                min="0"
+                required
+              />
+            </div>
+            <button type="submit" class="btn" id="addEquipmentBtn">
+              <i class="fas fa-plus"></i> Add Equipment
+            </button>
+          </form>
+        </div>
+
+        <!-- Confirm Booking Section -->
+        <div class="form-section">
+          <h3><i class="fas fa-check-circle"></i> Confirm Booking</h3>
+          <form id="confirmBookingForm">
+            <div class="form-group">
+              <label for="confirmBookingId">Booking ID:</label>
+              <input type="number" id="confirmBookingId" required min="0" />
+            </div>
+            <button type="submit" class="btn" id="confirmBookingBtn">
+              <i class="fas fa-check"></i> Confirm Booking
+            </button>
+          </form>
+        </div>
+
+
+        <!-- Transaction Log Section -->
+        <div class="log-section" id="transactionLog">
+          Welcome to SciQuipShar Equipment Booking Platform
+          ================================================= Please connect your
+          MetaMask wallet to get started. Make sure you're connected to the
+          Sepolia testnet and have some test ETH. Get free Sepolia ETH from:
+          https://sepoliafaucet.com/
+        </div>
+      </div>
+    </div>
+
+    <!-- Include ethers.js from local file (same as Node.js uses) -->
+    <script src="ethers.local.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

@@ -1,0 +1,19 @@
+{
+  "name": "sciquipshar-booking",
+  "version": "1.0.0",
+  "description": "SciQuipShar Equipment Booking System - Web Interface and Node.js CLI",
+  "main": "interact.js",
+  "scripts": {
+    "interactive": "node interactive-booking.js",
+    "web": "python -m http.server 8000",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["ethereum", "smart-contract", "booking", "sepolia", "web3", "metamask"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ethers": "^6.8.0",
+    "dotenv": "^16.3.1",
+    "date-fns": "^2.30.0"
+  }
+} 
